@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Biology Assessment: Mutations and Biotechnology</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333333;
+            --correct-color: #2ecc71;
+            --incorrect-color: #e74c3c;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .student-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .student-info label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .student-info input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: var(--border-color);
+            margin: 40px 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            font-weight: 700;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: block;
+            padding: 12px 15px;
+            background: #f9f9f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-label:hover {
+            background: #f0f4f8;
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.1);
+        }
+
+        .corrected-label {
+            pointer-events: none;
+        }
+
+        .corrected-label.correct-choice {
+            background-color: #d4edda !important;
+            border-color: var(--correct-color) !important;
+            color: #155724;
+            font-weight: bold;
+        }
+
+        .corrected-label.incorrect-choice {
+            background-color: #f8d7da !important;
+            border-color: var(--incorrect-color) !important;
+            color: #721c24;
+        }
+
+        .feedback-text {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .feedback-text.correct { color: var(--correct-color); }
+        .feedback-text.incorrect { color: var(--incorrect-color); }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            background: #1a252f;
+        }
+
+        #score-display {
+            display: none;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4fd;
+            color: var(--primary-color);
+            border-radius: 8px;
+            border: 1px solid #b3d7f4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Mutations & Recombinant DNA Technology</h1>
+    <div class="subtitle">Comprehensive Dual-Module Lecture Assessment</div>
+
+    <form id="quiz-form">
+        
+        <input type="hidden" name="_subject" value="Integrated Biology Lecture Quiz Submission">
+        <input type="hidden" id="hidden-score" name="Total Score" value="">
+        <input type="hidden" id="hidden-breakdown" name="Detailed Assessment Report" value="">
+
+        <div class="student-info">
+            <label for="student-name">Student Full Name:</label>
+            <input type="text" id="student-name" name="Student Name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="section-title">Part A: Core Knowledge and Conceptual Application</div>
+        <div id="part-a-questions"></div>
+
+        <hr class="section-divider">
+
+        <div class="section-title">Part B: Advanced Integration and Critical Thinking</div>
+        <div id="part-b-questions"></div>
+
+        <button type="submit" id="submit-button" class="submit-btn">Grade Quiz</button>
+    </form>
+
+    <div id="score-display"></div>
+</div>
+
+<script>
+const quizData = [
+    // PART A: Core Knowledge derived directly from structural presentation layers (1-20)
+    {
+        id: 1,
+        q: "Based on the provided lecture materials, which statement accurately captures the transmission potential of mutations?",
+        options: ["Somatic mutations are transmissible to offspring, while germ-line mutations affect only individual patches.", "Germ-line mutations can be passed on to future generations, whereas somatic mutations affect only the individual.", "Both somatic and germ-line variations are equally inherited by generations.", "Somatic cells can only mutate when directly exposed to transgenic plant vectors."],
+        answer: 1
+    },
+    {
+        id: 2,
+        q: "A point mutation occurs in a gene sequence, changing an triplet codon so that it codes for a completely different amino acid. This is known as a:",
+        options: ["Silent mutation", "Nonsense mutation", "Missense mutation", "Frameshift mutation"],
+        answer: 2
+    },
+    {
+        id: 3,
+        q: "What explicit functional modification occurs during a nonsense mutation?",
+        options: ["The reading frame shifts entirely downstream by one base pair.", "An amino acid-specifying codon is converted into a premature stop codon.", "The chemical structures of the sugar-phosphate backbones are deleted.", "The protein remains unaltered despite substantial sequence modifications."],
+        answer: 1
+    },
+    {
+        id: 4,
+        q: "Which specific structural changes induce a downstream frameshift mutation within coding exons?",
+        options: ["The inversion of a 180-degree sequence track inside a chromosome pair.", "The insertion or deletion of one or more nucleotide base pairs.", "The enzymatic cleavage of sticky ends using a restriction endonuclease.", "The selective substitution of a purine base with a complementary purine."],
+        answer: 1
+    },
+    {
+        id: 5,
+        q: "A structural mutation involving the breaking away of a chromosome segment, followed by its 180-degree rotation and local reattachment, is classified as a:",
+        options: ["Deletion", "Duplication", "Inversion", "Translocation"],
+        answer: 2
+    },
+    {
+        id: 6,
+        q: "Which definition correctly specifies a chromosomal translocation sequence?",
+        options: ["The net structural loss of a sequence segment from an isolated chromatid.", "The duplication of a gene set inside an identical homologous region.", "The movement of a structural segment from one chromosome to a nonhomologous chromosome.", "The failure of standard sister chromatids to disjoin during cell cycles."],
+        answer: 2
+    },
+    {
+        id: 7,
+        q: "What cellular dynamic is the direct cause of numerical chromosome abnormalities such as Down's syndrome?",
+        options: ["Nondisjunction, where chromosomes or sister chromatids fail to separate correctly during division.", "Asymmetrical crossing-over during chromosomal pairing states.", "Artificial exposure to exogenous chemical structures like nitrous acid.", "The deliberate integration of functional foreign bacterial vectors."],
+        answer: 0
+    },
+    {
+        id: 8,
+        q: "An individual possessing an abnormal chromosome count of 47 with an XXY sex chromosomal layout is diagnosed with:",
+        options: ["Turner Syndrome", "Klinefelter Syndrome", "Down's Syndrome", "Polyploid Mosaicism"],
+        answer: 1
+    },
+    {
+        id: 9,
+        q: "According to the chromosome structure context, what is the precise numerical constitution of Turner Syndrome?",
+        options: ["47 chromosomes, XXY", "47 chromosomes, trisomy 21", "45 chromosomes, XO", "46 chromosomes, XY with an inversion"],
+        answer: 2
+    },
+    {
+        id: 10,
+        q: "Which structural element is explicitly defined as a physical mutagen within the presentation slides?",
+        options: ["Colchicine", "Nitrous acid", "UV radiation", "Benzopyrene"],
+        answer: 2
+    },
+    {
+        id: 11,
+        q: "What primary description of genetic engineering is established within the lecture text?",
+        options: ["The baseline observation of natural evolutionary variation in mammalian tissues.", "The artificial introduction of foreign DNA into an organism to modify its traits.", "The isolation and tracking of native amino acids during translation phases.", "The manual disruption of cellular integrity using chemical mutagens."],
+        answer: 1
+    },
+    {
+        id: 12,
+        q: "What is a plasmid as described in the provided biotechnology sections?",
+        options: ["A linear viral sequence that acts as a physical mutagen.", "A circular piece of double-stranded DNA found naturally in bacteria, used as a cloning vector.", "A special host cell ribozyme that seals fragmented coding sections.", "An engineered protein tracking tool used to visualize mutated tissues."],
+        answer: 1
+    },
+    {
+        id: 13,
+        q: "Which enzyme functions as 'molecular scissors' by slicing DNA strands at specific recognition sites?",
+        options: ["DNA Ligase", "Restriction Endonuclease", "RNA Polymerase", "DNA Helicase"],
+        answer: 1
+    },
+    {
+        id: 14,
+        q: "What is the primary operational task of DNA ligase in a genetic engineering workflow?",
+        options: ["To digest structural sequences from complex host backgrounds.", "To cleanly bond or paste separate DNA fragments together.", "To find and correct miscoded substitution point errors.", "To duplicate plasmids inside cell suspensions."],
+        answer: 1
+    },
+    {
+        id: 15,
+        q: "A DNA molecule formed by artificially linking fragments from two entirely distinct biological sources is called:",
+        options: ["An inverted somatic matrix", "Recombinant DNA", "An aneuploid sequence strand", "A silent chromosomal vector"],
+        answer: 1
+    },
+    {
+        id: 16,
+        q: "Why are antibiotic resistance genes intentionally integrated into engineered cloning vectors?",
+        options: ["To cause targeted spontaneous mutations within the host organisms.", "To serve as select markers to identify host bacteria that have successfully taken up the plasmid.", "To prevent restriction enzymes from digesting the newly formed loops.", "To ensure the human gene fragment stays linear during cell replication."],
+        answer: 1
+    },
+    {
+        id: 17,
+        q: "An organism that has safely integrated a functional gene construct from an entirely different species is described as:",
+        options: ["An aneuploid variant", "A transgenic organism", "A spontaneous mutant", "A somatic crossover line"],
+        answer: 1
+    },
+    {
+        id: 18,
+        q: "Which historical achievement is assigned to Paul Berg in the chronology of biotechnology developments?",
+        options: ["Elucidating the double helix structure of cellular DNA.", "Producing the first recombinant DNA molecule in 1972.", "Isolating the restriction enzyme mechanisms from E. coli populations.", "Cloning complex polyploid grains in an industrial setting."],
+        answer: 1
+    },
+    {
+        id: 19,
+        q: "How does polyploidy in crops (like wheat) contrast with standard human chromosomal abnormalities?",
+        options: ["Polyploidy involves losing a single chromosome arm.", "Polyploidy involves full extra sets of chromosomes, whereas human conditions involve gains or losses of single chromosomes.", "Polyploidy occurs only through physical mutagens like X-rays.", "Wheat polyploidy is always a lethal condition over subsequent generations."],
+        answer: 1
+    },
+    {
+        id: 20,
+        q: "What fundamental evolutionary benefit do background mutations provide to species populations?",
+        options: ["They enforce complete sequence conservation over time.", "They act as the raw material for genetic variation, which drives evolution and natural selection.", "They completely suppress nondisjunction errors in gametes.", "They shield the organism from all external environmental mutagens."],
+        answer: 1
+    },
+
+    // PART B: Advanced Integration & Critical Thinking (21-30)
+    {
+        id: 21,
+        q: "A patient presents with sickle-cell anemia due to a single nucleotide substitution changing a codon from GAG to GTG. Based on the material, what molecular dynamic is displayed?",
+        options: ["A frameshift deletion that scrambled the whole trailing chain.", "A missense mutation that changed a hydrophilic amino acid into a hydrophobic one, altering protein structure.", "A nonsense change that arrested polypeptide synthesis prematurely.", "A silent mutation that did not modify the final amino acid content."],
+        answer: 1
+    },
+    {
+        id: 22,
+        q: "If an exon sequence sustains a single-base insertion and an immediate single-base deletion exactly three bases down, what is the net structural impact on translation?",
+        options: ["The reading frame remains permanently altered for the entire downstream sequence.", "The reading frame is restored downstream, causing a localized modification of only a few amino acids.", "The translation apparatus stalls completely at the modification site.", "The resulting transcript is rendered immune to restriction endonuclease actions."],
+        answer: 1
+    },
+    {
+        id: 23,
+        q: "Why can an autosomal nondisjunction error produce severe phenotypic syndromes in humans, while polyploidy in agricultural wheat results in robust, viable plants?",
+        options: ["Aneuploidy introduces single-chromosome gene dosage imbalances, whereas polyploidy shifts entire chromosome sets uniformly.", "Polyploidy isolates crops from chemical mutagens like colchicine.", "Nondisjunction alters somatic tissue tracks exclusively, while polyploidy influences plant germ lines.", "Wheat crops lack true chromosomes, making numerical sorting failures irrelevant."],
+        answer: 0
+    },
+    {
+        id: 24,
+        q: "A cell culture is treated with colchicine, an agent that completely halts spindle fiber assembly. Based on the lecture patterns, what chromosomal configuration is expected?",
+        options: ["A series of targeted transitions and transversions", "Polyploidy due to a failure to segregate complete chromosome arrays", "A reciprocal translocation between nonhomologous pairs", "A localized frameshift deletion across exon sequences"],
+        answer: 1
+    },
+    {
+        id: 25,
+        q: "In a gene cloning scenario, why is it critical that both the isolated human gene fragment and the recipient plasmid vector be digested with the exact same restriction endonuclease?",
+        options: ["To prevent the antibiotic resistance marker from expressing prematurely.", "To create matching, complementary 'sticky ends' that can properly base-pair together via hydrogen bonds.", "To ensure that DNA ligase is completely unneeded in the final sealing stage.", "To turn the circular bacterial plasmid into an open, single-stranded linear shape."],
+        answer: 1
+    },
+    {
+        id: 26,
+        q: "When a human insulin gene is successfully cloned into a bacterial host, the bacterium processes it to synthesize functional human insulin. What does this confirm?",
+        options: ["Bacteria naturally contain human genetic structures in their background chromosomes.", "The genetic code is universal, allowing host mechanisms to translate foreign sequences accurately.", "Bacterial plasmid vectors skip the translation step to accelerate protein output.", "Restriction endonucleases act as transcription triggers inside cell suspensions."],
+        answer: 1
+    },
+    {
+        id: 27,
+        q: "An engineered plasmid loop carrying an ampicillin selection gene is mixed with a bacterial culture. After plating on ampicillin agar, only select colonies grow. What can be concluded about the survivors?",
+        options: ["They acquired a spontaneous somatic inversion that blocks ampicillin absorption.", "They successfully completed transformation by taking up the recombinant plasmid vector.", "They underwent total polyploidy when exposed to the growth medium matrix.", "They actively manufactured restriction endonucleases to destroy external ampicillin molecules."],
+        answer: 1
+    },
+    {
+        id: 28,
+        q: "How does a reciprocal translocation between two nonhomologous chromosomes structurally differ from a standard crossover event during Meiosis I?",
+        options: ["Translocation involves segment swaps between non-matching chromosomes, while crossing-over occurs between homologous pairs.", "Crossing-over leads directly to aneuploidy, while translocation events are always silent point mutations.", "Translocations require bacterial plasmid rings, whereas crossing-over is triggered by chemical mutagens.", "Crossing-over alters the overall chromosome count, while translocation shifts the total ploidy level."],
+        answer: 0
+    },
+    {
+        id: 29,
+        q: "A human gene experiences a single base substitution that transforms a Leucine codon (TTA) into a stop codon (TAA). What structural consequence will occur during translation?",
+        options: ["A missense modification that changes the chemical traits of that specific region.", "Premature translation termination, yielding a truncated, non-functional protein segment.", "The ribosome skips past the modified codon with no change to the protein sequence.", "A broad reading frame shift that scrambles all subsequent downstream amino acids."],
+        answer: 1
+    },
+    {
+        id: 30,
+        q: "A single chromosome sorting failure occurs during Meiosis I (nondisjunction). What is the expected chromosomal balance across the resulting four gametes?",
+        options: ["All four gametes will retain a perfectly balanced haploid count (n).", "All four gametes will show an identical polyploid duplication array (3n).", "Two gametes will contain an extra chromosome (n + 1) and two gametes will lack a chromosome (n - 1).", "Two gametes will be normal (n), one will be (n + 1), and one will be (n - 1)."],
+        answer: 2
+    }
+];
+
+function renderQuiz() {
+    const partAContainer = document.getElementById('part-a-questions');
+    const partBContainer = document.getElementById('part-b-questions');
+
+    quizData.forEach((item) => {
+        const qBlock = document.createElement('div');
+        qBlock.className = 'question-block';
+        qBlock.id = `q-block-${item.id}`;
+
+        const qText = document.createElement('div');
+        qText.className = 'question-text';
+        qText.innerText = `${item.id}. ${item.q}`;
+        qBlock.appendChild(qText);
+
+        const optionsList = document.createElement('ul');
+        optionsList.className = 'options-list';
+
+        item.options.forEach((opt, optIdx) => {
+            const li = document.createElement('li');
+            li.className = 'option-item';
+
+            const label = document.createElement('label');
+            label.className = 'option-label';
+            label.id = `label-${item.id}-${optIdx}`;
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = `question-${item.id}`;
+            radio.value = optIdx;
+            radio.required = true;
+
+            label.appendChild(radio);
+            label.appendChild(document.createTextNode(opt));
+            li.appendChild(label);
+            optionsList.appendChild(li);
+        });
+
+        qBlock.appendChild(optionsList);
+
+        const fb = document.createElement('div');
+        fb.id = `feedback-${item.id}`;
+        qBlock.appendChild(fb);
+
+        if (item.id <= 20) {
+            partAContainer.appendChild(qBlock);
+        } else {
+            partBContainer.appendChild(qBlock);
+        }
+    });
+}
+
+document.getElementById('quiz-form').addEventListener('submit', function(e) {
+    let score = 0;
+    let breakdownText = "";
+    
+    let isGraded = this.dataset.graded === "true";
+
+    if (isGraded) {
+        return; // Let the Formspree POST flow normally on second click
+    }
+
+    e.preventDefault();
+
+    const studentName = document.getElementById('student-name').value.trim();
+    breakdownText += `Student Name: ${studentName}\n`;
+    breakdownText += `==================================================\n\n`;
+
+    quizData.forEach((item) => {
+        const selectedRadio = document.querySelector(`input[name="question-${item.id}"]:checked`);
+        let studentAnsIndex = selectedRadio ? parseInt(selectedRadio.value) : -1;
+        let isCorrect = studentAnsIndex === item.answer;
+
+        if (isCorrect) {
+            score++;
+        }
+
+        let studentAnsText = studentAnsIndex >= 0 ? item.options[studentAnsIndex] : 'No Answer Selected';
+        let correctAnsText = item.options[item.answer];
+        
+        breakdownText += `Q${item.id}: Student Choice -> ${studentAnsText} | Correct Answer -> ${correctAnsText} | Verdict -> ${isCorrect ? 'CORRECT' : 'INCORRECT'}\n`;
+
+        quizData.forEach((_, optIdx) => {
+            const currentLabel = document.getElementById(`label-${item.id}-${optIdx}`);
+            if (currentLabel) {
+                currentLabel.classList.add('corrected-label');
+                if (optIdx === item.answer) {
+                    currentLabel.classList.add('correct-choice');
+                } else if (optIdx === studentAnsIndex && !isCorrect) {
+                    currentLabel.classList.add('incorrect-choice');
+                }
+            }
+        });
+
+        const fbDiv = document.getElementById(`feedback-${item.id}`);
+        if (isCorrect) {
+            fbDiv.className = "feedback-text correct";
+            fbDiv.innerText = "✓ Correct Answer";
+        } else {
+            fbDiv.className = "feedback-text incorrect";
+            fbDiv.innerText = `✗ Incorrect. Correct: ${correctAnsText}`;
+        }
+    });
+
+    const scoreDisplay = document.getElementById('score-display');
+    scoreDisplay.style.display = 'block';
+    scoreDisplay.innerText = `${studentName}, your evaluation score is: ${score} / ${quizData.length}`;
+
+    // Populate the form fields with data to be posted to Formspree
+    document.getElementById('hidden-score').value = `${score} / ${quizData.length}`;
+    document.getElementById('hidden-breakdown').value = breakdownText;
+
+    const formEl = document.getElementById('quiz-form');
+    formEl.action = "https://formspree.io/f/xgorlkjl";
+    formEl.method = "POST";
+
+    const btn = document.getElementById('submit-button');
+    btn.innerText = "Transmit Records via Formspree";
+    this.dataset.graded = "true";
+});
+
+renderQuiz();
+</script>
+
+</body>
+</html>
